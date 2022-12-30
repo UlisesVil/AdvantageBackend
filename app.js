@@ -9,7 +9,11 @@ const advantageBackendMainPage= require('./templates/advantageBackendMainPage');
 
 //Load English-APP Routes
 const user_routes= require('./advantageApp/routes/user_routes');
-
+const userdata_routes= require('./advantageApp/routes/userdata_routes');
+const multipart = require('connect-multiparty'); 
+// const multiPartMiddleware= multipart({
+//     uploadDir: './uploads'
+// })
 //Middlewares
 
 app.use(express.json());
@@ -24,6 +28,12 @@ app.use((req,res,next)=>{
     next();
 });
 
+// app.post('/advantageApp/api/subir', multiPartMiddleware,(req,res)=>{
+//     res.json({
+//         'message':'Fichero subido correctamente!'
+//     });
+// });
+
 //Backend Angular Projects Main Page  
 app.get('/',(req,res)=>{
     res.status(200).send( advantageBackendMainPage );
@@ -31,5 +41,8 @@ app.get('/',(req,res)=>{
 
 //Advange-APP Routes
 app.use('/advantageApp', user_routes);
+app.use('/advantageApp', userdata_routes);
+
+
 
 module.exports = app;
